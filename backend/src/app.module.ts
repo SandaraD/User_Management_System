@@ -13,16 +13,6 @@ import { UsersModule } from './users/users.module';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
-        //         TypeOrmModule.forRoot({
-        //   type: 'postgres',
-        //   host: 'localhost',
-        //   port: 5432,
-        //   username: 'sandaradewmini',
-        //   password: ' ',
-        //   database: 'assigment_db',
-        //   entities: [User],
-        //   synchronize: true,
-        // }),
         type: 'postgres',
         host: configService.get('DATABASE_HOST'),
         port: parseInt(configService.get<string>('DATABASE_PORT') || '5432'),
