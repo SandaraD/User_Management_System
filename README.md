@@ -19,11 +19,11 @@ A simple full-stack CRUD application to manage users — built using modern tech
 
 ---
 ## Features
-**Create new users via modal form**
-**Edit existing users via modal form**
-**Delete existing users with confirmation messgae**
-**Form validation with Antd**
-**Paginatino(8 users per page)**
+- **Create new users via modal form**
+- **Edit existing users via modal form**
+- **Delete existing users with confirmation messgae**
+- **Form validation with Antd**
+- **Paginatino(8 users per page)**
 
 ---
 
