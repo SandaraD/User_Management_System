@@ -1,54 +1,77 @@
-# React + TypeScript + Vite
+# 👤 User Management App (React + NestJS + PostgreSQL)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple full-stack CRUD application to manage users — built using modern technologies like **React**, **NestJS**, **PostgreSQL**, and **Ant Design**.
 
-Currently, two official plugins are available:
+> This app allows you to create, edit, and delete users in a sleek, responsive interface. Ideal for learning or as a boilerplate for future full-stack projects.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Layer      | Technology                    |
+|------------|-------------------------------|
+| Frontend   | React + Vite + TypeScript     |
+| UI Library | Ant Design                    |
+| Backend    | NestJS                        |
+| Database   | PostgreSQL                    |
+| HTTP Client| Axios                         |
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+
+---
+## Features
+**Create new users via modal form**
+**Edit existing users via modal form**
+**Delete existing users with confirmation messgae**
+**Form validation with Antd**
+**Paginatino(8 users per page)**
+
+---
+
+## ⚙️ Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or higher)
+- PostgreSQL
+- npm or yarn
+
+---
+
+## 🚀 Backend Setup (NestJS)
+
+```bash
+cd backend
+npm install
+
+---
+
+## Create a .env file in the backend folder
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+DATABASE_USER='your_username'
+DATABASE_PASSWORD='your_password'
+DATABASE_NAME='your_db_name'
+
+---
+## Start the backend server
+npm run start:dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 Frontend Setup (React + Vite)
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+cd frontend
+npm install
 ```
+
+### Start the frontend server
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+---
