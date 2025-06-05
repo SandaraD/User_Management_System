@@ -10,7 +10,7 @@ export class UsersService {
     private userRepository: Repository<User>,
   ) {}
 
-  //   POST
+  //  POST
   async create(userData: Partial<User>): Promise<User> {
     const newUser = this.userRepository.create(userData);
     return await this.userRepository.save(newUser);
