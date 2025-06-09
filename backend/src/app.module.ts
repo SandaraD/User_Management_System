@@ -10,7 +10,7 @@ import { Password } from './password/entities/password/password';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true, // makes ConfigService available everywhere
+      isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

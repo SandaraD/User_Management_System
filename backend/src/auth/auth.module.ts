@@ -4,9 +4,11 @@ import { AuthController } from './auth.controller';
 import { UsersModule } from 'src/users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { PasswordModule } from 'src/password/password.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     UsersModule,
     PasswordModule,
     JwtModule.register({
