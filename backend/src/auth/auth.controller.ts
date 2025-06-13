@@ -38,7 +38,7 @@ export class AuthController {
     response.cookie('jwt', access_token, {
       httpOnly: true,
       sameSite: 'lax',
-      secure: false, // ✅ set to true if you're using HTTPS
+      secure: false,
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
