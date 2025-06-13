@@ -16,18 +16,14 @@ export class AuthService {
     password: string,
   ): Promise<{ access_token: string }> {
     const user = await this.userService.findByFirstName(firstName);
-    if (!user) {
-      throw new UnauthorizedException('User not found');
-    }
+    if (!user) throw new UnauthorizedException('User not found');
 
     const isValid = await this.passwordService.validate(user.id, password);
-    if (!isValid) {
-      throw new UnauthorizedException('Invalid password');
-    }
+    if (!isValid) throw new UnauthorizedException('Invalid password');
 
     const payload = { sub: user.id, firstName: user.firstName };
     const token = await this.jwtService.signAsync(payload);
 
-    return { access_token: token };
+    return { access_token: token }; // ✅ This must be an object!
   }
 }
