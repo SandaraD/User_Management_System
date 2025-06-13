@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, message, Popconfirm, Table } from "antd";
 import axios from "axios";
 import UserFormModal from "../components/UserFormModal";
+import { useNavigate } from "react-router-dom";
 
 interface User {
   id: number;
@@ -15,14 +16,27 @@ const UserPage: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [editUser, setEditUser] = useState<User | null>(null);
   const [isEditMode, setIsEditMode] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchUsers();
-  }, []);
+    const checkAuth = async () => {
+      try {
+        await axios.get("http://localhost:3000/auth/profile", {
+          withCredentials: true,
+        });
+        fetchUsers();
+      } catch {
+        navigate("/login");
+      }
+    };
+    checkAuth();
+  }, [navigate]);
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get<User[]>("http://localhost:3000/users");
+      const response = await axios.get<User[]>("http://localhost:3000/users", {
+        withCredentials: true,
+      });
       setUsers(response.data);
     } catch (error) {
       console.log("Failed to fetch users: ", error);
@@ -43,7 +57,9 @@ const UserPage: React.FC = () => {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:3000/users/${id}`);
+      await axios.delete(`http://localhost:3000/users/${id}`, {
+        withCredentials: true,
+      });
       message.success("User deleted");
       fetchUsers();
     } catch {
@@ -54,19 +70,32 @@ const UserPage: React.FC = () => {
   const handleSubmit = async (values: Omit<User, "id">) => {
     try {
       if (isEditMode && editUser) {
-        await axios.put(
-          `http://localhost:3000/users/${editUser.id}`,
-          values
-        );
+        await axios.put(`http://localhost:3000/users/${editUser.id}`, values, {
+          withCredentials: true,
+        });
         message.success("User updated");
       } else {
-        await axios.post("http://localhost:3000/users", values);
+        await axios.post("http://localhost:3000/users", values, {
+          withCredentials: true,
+        });
         message.success("User created");
       }
       setModalVisible(false);
       fetchUsers();
     } catch {
       message.error("Something went wrong");
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await axios.post("http://localhost:3000/auth/logout", {}, {
+        withCredentials: true,
+      });
+      message.success("Logged out");
+      navigate("/login");
+    } catch {
+      message.error("Logout failed");
     }
   };
 
@@ -100,7 +129,7 @@ const UserPage: React.FC = () => {
             Edit
           </Button>
           <Popconfirm
-            title="Are you aure to delete this user?"
+            title="Are you sure you want to delete this user?"
             onConfirm={() => handleDelete(record.id)}
             okText="Yes"
             cancelText="No"
@@ -116,7 +145,13 @@ const UserPage: React.FC = () => {
 
   return (
     <div style={{ padding: 100 }}>
-      <h2 style={{ marginBottom: 16 }}>User List</h2>
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 16 }}>
+        <h2>User List</h2>
+        <Button danger onClick={handleLogout}>
+          Logout
+        </Button>
+      </div>
+
       <Button
         type="primary"
         onClick={handleCreate}
@@ -124,12 +159,13 @@ const UserPage: React.FC = () => {
       >
         Create User
       </Button>
-      <Table 
-        dataSource={users} 
-        columns={columns} 
-        rowKey="id" 
-        pagination={{ pageSize: 8}}
-        />
+
+      <Table
+        dataSource={users}
+        columns={columns}
+        rowKey="id"
+        pagination={{ pageSize: 8 }}
+      />
 
       <UserFormModal
         visible={modalVisible}
